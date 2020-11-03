@@ -1,0 +1,126 @@
+<html>
+    <head>
+        <title>Map · Codenames</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width; initial-scale=1.0;">
+        <style type='text/css'>
+            body {
+                font-family: "Lucida Grande", arial, sans-serif;
+                padding: 1em;
+                text-align: center;
+            }
+
+            h2,h3 {
+                font-weight: normal;
+            }
+
+            .padded { padding: .3em; }
+
+            .red, .blue, .black { color: white; }
+            .yellow { color: #222; }
+
+            .red { background-color: #c22; }
+            .blue { background-color: #22c; }
+            .yellow { background-color: #cc2; }
+            .black { background-color: #222; }
+
+            #map {
+                margin: 2em auto;
+                border-collapse: separate;
+                border-spacing: 5px;
+            }
+            .card {
+                height: 3.4em;
+                width: 3.4em;
+                border: 2px solid white;
+                border-radius: 7px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Map</h2>
+        <h3 id='goesfirst'></h3>
+        <div>
+            <table id='map'>
+                <tr>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                </tr>
+                <tr>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                </tr>
+                <tr>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                </tr>
+                <tr>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                </tr>
+                <tr>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                    <td class='card'></td>
+                </tr>
+            </table>
+        </div>
+        <script type='text/javascript'>
+            (function() {
+                map = document.getElementById('map');
+
+                function shuffle(a) {
+                    var j, x, i;
+                    for (i = a.length - 1; i > 0; i--) {
+                        j = Math.floor(Math.random() * (i + 1));
+                        x = a[i];
+                        a[i] = a[j];
+                        a[j] = x;
+                    }
+                    return a;
+                }
+
+                rand = 'blue';
+                if (Math.random() > 0.5) { rand = 'red'; }
+
+                colors = ['blue', 'blue', 'blue', 'blue',
+                         'blue', 'blue', 'blue', 'blue',
+                         'red', 'red', 'red', 'red',
+                         'red', 'red', 'red', 'red',
+                         'yellow', 'yellow', 'yellow', 'yellow',
+                         'yellow', 'yellow', 'yellow', rand,
+                         'black'];
+
+                colors = shuffle(colors);
+
+                cards = document.getElementsByClassName('card');
+                for (i = 0; i < 25; i++) {
+                    cards[i].classList.remove('blue');
+                    cards[i].classList.remove('red');
+                    cards[i].classList.remove('yellow');
+                    cards[i].classList.remove('black');
+                    cards[i].classList.add(colors[i]);
+                }
+
+                document.getElementById('goesfirst').innerHTML =
+                    '<span class="'+rand+' padded">'+rand+"</span>"
+                    + " goes first";
+
+            })()
+        </script>
+    </body>
+</html>
